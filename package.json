@@ -1,0 +1,20 @@
+{
+  "name": "emoji-lookup",
+  "version": "0.0.1",
+  "description": " An extension for finding and inserting emoji into text inputs",
+  "scripts": {
+    "start": "webpack --config webpack.config.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "jest": "^23.5.0",
+    "preact-testing-library": "^0.2.1",
+    "prettier": "^1.14.2",
+    "webpack": "^4.17.1"
+  },
+  "dependencies": {
+    "preact": "^8.3.1"
+  }
+}
