@@ -2,7 +2,7 @@
   "name": "emoji-lookup",
   "description": "An extension for finding and inserting emoji into text inputs",
   "scripts": {
-    "start": "webpack --config webpack.config.js",
+    "start": "webpack --watch --config webpack.config.js",
     "test": "jest",
     "test:watch": "jest --watch"
   },
