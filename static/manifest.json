@@ -2,22 +2,35 @@
   "name": "emoji-lookup",
   "version": "0.0.1",
   "description": "An extension for finding and inserting emoji into text inputs",
-  "permissions": [],
+  "permissions": [
+    "<all_urls>",
+    "tabs",
+    "activeTab",
+    "alarms",
+    "sessions",
+    "history",
+    "bookmarks",
+    "storage",
+    "contextMenus"
+  ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
-  "page_action": {
-    "default_popup": "popup-content.html"
+    "page": "background.html",
+    "persistent": true
   },
   "manifest_version": 2,
   "commands": {
-    "toggleSaka": {
+    "toggleExtension": {
       "suggested_key": {
-        "default": "Ctrl+Shift+Space",
+        "default": "Ctrl+Space",
         "mac": "Alt+Space"
       },
       "description": "Toggle Saka"
+    }
+  },
+  "web_accessible_resources": ["popup.html"],
+  "browser_action": {
+    "default_icon": {
+      "48": "logo.png"
     }
   }
 }
