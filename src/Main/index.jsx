@@ -1,20 +1,34 @@
 import { Component, h } from 'preact';
-import 'material-components-web/dist/material-components-web.css';
 import SearchBar from './Components/SearchBar.jsx';
+import ResultsList from './Components/ResultsList.jsx';
+import getFilteredSuggestions from './emojiSearch.js';
+import 'material-components-web/dist/material-components-web.css';
 import 'scss/style.scss';
 
 export default class Main extends Component {
-  handleSearchInput = e => {
-    console.log('Testing: ', e.target.value);
+  state = {
+    results: [],
+    searchString: ''
+  };
+
+  handleSearchInput = async e => {
+    const results = await getFilteredSuggestions(e.target.value);
+    this.setState({
+      results,
+      searchString: e.target.value
+    });
   };
 
   render() {
+    const { results, searchString } = this.state;
     return (
       <div className="main-wrapper">
         <SearchBar
           handleSearchInput={this.handleSearchInput}
           placeholder="Search Emoji"
+          searchString={searchString}
         />
+        <ResultsList results={results} />
       </div>
     );
   }

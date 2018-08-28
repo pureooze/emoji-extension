@@ -12,6 +12,7 @@
     "babel-jest": "^23.4.2",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
@@ -42,6 +43,9 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "emojilib": "^2.3.0",
+    "emojione": "^3.1.7",
+    "fuse.js": "^3.2.1",
     "preact": "^8.3.1",
     "webextension-polyfill": "git+https://github.com/lusakasa/webextension-polyfill.git"
   }
