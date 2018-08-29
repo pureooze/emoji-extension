@@ -21,7 +21,7 @@
   "commands": {
     "toggleExtension": {
       "suggested_key": {
-        "default": "Ctrl+Space",
+        "default": "Ctrl+Shift+Space",
         "mac": "Alt+Space"
       },
       "description": "Toggle Saka"

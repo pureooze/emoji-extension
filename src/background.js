@@ -1,4 +1,6 @@
 import 'lib/browser_polyfill.js';
+import getCursorXY from './cursor.js';
+
 browser.extension.getBackgroundPage().console.log('Background page loading...');
 
 async function toggleExtension(tabId) {
@@ -20,6 +22,20 @@ async function toggleExtension(tabId) {
   }
 }
 
+async function closeSaka(tab) {
+  if (tab) {
+    if (tab.url === browser.runtime.getURL('popup.html')) {
+      await browser.tabs.remove(tab.id);
+    } else {
+      await browser.tabs.executeScript(tab.id, {
+        file: '/toggle_extension.js',
+        runAt: 'document_start',
+        matchAboutBlank: true
+      });
+    }
+  }
+}
+
 browser.browserAction.onClicked.addListener(() => {
   browser.extension.getBackgroundPage().console.log('Click: ');
   toggleExtension();
@@ -36,11 +52,14 @@ browser.commands.onCommand.addListener(command => {
   }
 });
 
-browser.runtime.onMessage.addListener(async message => {
+browser.runtime.onMessage.addListener(async (message, sender) => {
   browser.extension.getBackgroundPage().console.log('onMessage: ', message);
   switch (message.key) {
     case 'toggleSaka':
       toggleExtension();
+      break;
+    case 'closeSaka':
+      closeSaka(sender.tab);
       break;
     default:
       console.error(`Unknown message: '${message}'`);
