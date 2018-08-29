@@ -5,7 +5,8 @@ export default class SearchBar extends Component {
     const { placeholder, searchString, handleSearchInput } = this.props;
 
     return (
-      <section className="mdc-text-field mdc-text-field--dense mdc-text-field--outlined search-field-wrapper">
+      <section className="mdc-text-field text-field mdc-text-field--dense mdc-text-field--with-leading-icon search-field-wrapper">
+        <i className="material-icons mdc-text-field__icon">search</i>
         <input
           id="search-bar"
           className="mdc-text-field__input search-field-input"

@@ -1,5 +1,8 @@
 import { h } from 'preact';
 
-export default ({ result }) => {
-  return <li className="result">{result.value}</li>;
-};
+export default ({ result }) => (
+  <li className="mdc-list-item">
+    <span className="mdc-list-item__graphic emoji">{result.value}</span>
+    {result.name}
+  </li>
+);
