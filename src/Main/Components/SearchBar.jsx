@@ -13,8 +13,9 @@ export default class SearchBar extends Component {
           type="text"
           aria-label={placeholder}
           placeholder={placeholder}
-          onInput={handleSearchInput}
+          onKeyDown={handleSearchInput}
           value={searchString}
+          autoFocus
           ref={input => input && input.focus()}
         />
       </section>

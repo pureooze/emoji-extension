@@ -1,10 +1,3 @@
-import {
-  setSelectedItem,
-  setCursorPosition,
-  getSelectedItem,
-  getCursorPosition
-} from './cursor.js';
-
 function getCaret(el) {
   if (el.selectionStart) {
     return el.selectionStart;
@@ -28,18 +21,25 @@ function getCaret(el) {
 
 const oldRoot = document.querySelector('#emoji-lookup-root');
 const currentSelection = document.activeElement;
+browser.runtime.onMessage.addListener(async message => {
+  console.log('Message: ', message);
+  if (message.greeting !== '') {
+    const cursor = {
+      selectedItem: currentSelection,
+      cursorPosition: this.getCaret(currentSelection)
+    };
+    console.log('C: ', currentSelection);
 
-setSelectedItem(currentSelection);
-setCursorPosition(getCaret(currentSelection));
+    const left = cursor.selectedItem.value.substring(0, cursor.cursorPosition);
+    const right = cursor.selectedItem.value.substring(
+      cursor.cursorPosition,
+      cursor.selectedItem.value.length
+    );
+    const mid = '🚓';
 
-const left = getSelectedItem().value.substring(0, getCursorPosition());
-const right = getSelectedItem().value.substring(
-  getCursorPosition(),
-  getSelectedItem().value.length
-);
-const mid = '🚓';
-
-getSelectedItem().value = left + mid + right;
+    cursor.selectedItem.value = left + mid + right;
+  }
+});
 
 if (oldRoot) {
   oldRoot.remove();
@@ -64,4 +64,6 @@ pointer-events: all;
   // mount to DOM
   newRoot.appendChild(iframe);
   document.documentElement.appendChild(newRoot);
+
+  // const { selection } = await browser.storage.sync.get(['selection']);
 }
