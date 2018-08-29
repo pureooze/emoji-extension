@@ -28,7 +28,7 @@ export default class Main extends Component {
           placeholder="Search Emoji"
           searchString={searchString}
         />
-        <ResultsList results={results} />
+        {results.length >= 0 ? <ResultsList results={results} /> : null}
       </div>
     );
   }
