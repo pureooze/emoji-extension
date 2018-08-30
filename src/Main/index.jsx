@@ -3,7 +3,6 @@ import { Component, h } from 'preact';
 import SearchBar from './Components/SearchBar.jsx';
 import ResultsList from './Components/ResultsList.jsx';
 import getFilteredSuggestions from './emojiSearch.js';
-import 'material-components-web/dist/material-components-web.css';
 import 'scss/style.scss';
 
 export default class Main extends Component {
@@ -14,9 +13,10 @@ export default class Main extends Component {
   };
 
   handleSearchInput = async e => {
-    const { selectedEntry } = this.state;
-    console.log(e);
+    const { selectedEntry, results } = this.state;
+
     if (e.key === 'ArrowUp' && selectedEntry > 0) {
+      e.preventDefault();
       this.setState({
         selectedEntry: selectedEntry - 1
       });
@@ -24,18 +24,22 @@ export default class Main extends Component {
       this.setState({
         selectedEntry: selectedEntry + 1
       });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      this.handleEmojiSelection(results[selectedEntry].value);
+      browser.runtime.sendMessage({
+        key: 'closeExtension'
+      });
     } else {
-      const results = await getFilteredSuggestions(e.target.value);
+      const filteredResults = await getFilteredSuggestions(e.target.value);
       this.setState({
-        results,
+        results: filteredResults,
         searchString: e.target.value
       });
     }
   };
 
   handleEmojiSelection = async e => {
-    console.log('Emoji: ', e);
-
     const input = document.createElement('input');
     input.value = e;
     document.body.appendChild(input);
@@ -43,9 +47,6 @@ export default class Main extends Component {
     const result = document.execCommand('copy');
     input.blur();
     document.body.removeChild(input);
-    if (result === 'unsuccessful') {
-      console.error('Failed to copy text.');
-    }
   };
 
   render() {

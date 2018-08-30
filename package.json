@@ -45,7 +45,6 @@
   "dependencies": {
     "emojilib": "^2.3.0",
     "fuse.js": "^3.2.1",
-    "jquery": "^3.3.1",
     "preact": "^8.3.1",
     "webextension-polyfill": "git+https://github.com/lusakasa/webextension-polyfill.git"
   }
