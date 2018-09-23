@@ -5,11 +5,22 @@
 
 section.search-field-wrapper {
   font-size: 16px;
-  padding-right: 16px;
-  display: flex;
-  border-bottom: none;
+  font-family: inherit;
 }
 
 input.search-field-input {
   font-size: inherit;
+}
+
+.name-format {
+  text-transform: capitalize;
+}
+
+.emoji {
+  color: rgba(0, 0, 0, 1);
+  font-size: 1.5rem;
+}
+
+.selected-list-item {
+  background-color: rgba(201, 201, 201, 0.18);
 }

@@ -1,5 +1,4 @@
 import 'lib/browser_polyfill.js';
-chrome.extension.getBackgroundPage().console.log('Background page loading...');
 
 async function toggleExtension(tabId) {
   const currentTab =
@@ -16,33 +15,53 @@ async function toggleExtension(tabId) {
       runAt: 'document_start',
       matchAboutBlank: true
     });
-    chrome.extension.getBackgroundPage().console.log(currentTab);
   }
 }
 
-chrome.browserAction.onClicked.addListener(() => {
-  chrome.extension.getBackgroundPage().console.log('Click: ');
+async function closeExtension(tab) {
+  if (tab) {
+    if (tab.url === browser.runtime.getURL('popup.html')) {
+      await browser.tabs.remove(tab.id);
+    } else {
+      await browser.tabs.executeScript(tab.id, {
+        file: '/toggle_extension.js',
+        runAt: 'document_start',
+        matchAboutBlank: true
+      });
+    }
+  }
+}
+
+browser.browserAction.onClicked.addListener(() => {
+  browser.extension.getBackgroundPage().console.log('Click: ');
   toggleExtension();
 });
 
 browser.commands.onCommand.addListener(command => {
-  chrome.extension.getBackgroundPage().console.log('Command: ', command);
+  browser.extension.getBackgroundPage().console.log('Command: ', command);
   switch (command) {
     case 'toggleExtension':
       toggleExtension();
       break;
+
     default:
       console.error(`Unknown command: '${command}'`);
   }
 });
 
-browser.runtime.onMessage.addListener(async message => {
-  chrome.extension.getBackgroundPage().console.log('onMessage: ', message);
+browser.runtime.onMessage.addListener(async (message, sender) => {
+  browser.extension.getBackgroundPage().console.log('123: ', message);
   switch (message.key) {
-    case 'toggleSaka':
-      toggleExtension();
+    case 'closeExtension':
+      closeExtension(sender.tab);
       break;
     default:
       console.error(`Unknown message: '${message}'`);
   }
+});
+
+browser.contextMenus.create({
+  title: 'emoji-lookup',
+  contexts: ['all'],
+  onclick: () => toggleExtension()
 });

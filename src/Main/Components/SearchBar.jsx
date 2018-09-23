@@ -5,15 +5,17 @@ export default class SearchBar extends Component {
     const { placeholder, searchString, handleSearchInput } = this.props;
 
     return (
-      <section className="mdc-text-field mdc-text-field--dense mdc-text-field--outlined search-field-wrapper">
+      <section className="mdc-text-field mdc-text-field--dense">
         <input
           id="search-bar"
-          className="mdc-text-field__input search-field-input"
+          name="search-bar"
+          className="mdc-text-field__input"
           type="text"
-          placeholder={placeholder}
           aria-label={placeholder}
-          onInput={handleSearchInput}
+          placeholder={placeholder}
+          onKeyDown={handleSearchInput}
           value={searchString}
+          autoFocus
           ref={input => input && input.focus()}
         />
       </section>

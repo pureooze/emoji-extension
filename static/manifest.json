@@ -21,7 +21,7 @@
   "commands": {
     "toggleExtension": {
       "suggested_key": {
-        "default": "Ctrl+Space",
+        "default": "Ctrl+Shift+Space",
         "mac": "Alt+Space"
       },
       "description": "Toggle Saka"
@@ -31,6 +31,11 @@
   "browser_action": {
     "default_icon": {
       "48": "logo.png"
+    }
+  },
+  "applications": {
+    "gecko": {
+      "id": "{4c7335d3-74e0-4fe0-81f5-5f1f35a47691}"
     }
   }
 }
